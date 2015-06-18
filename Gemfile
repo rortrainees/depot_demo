@@ -1,6 +1,8 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.20'
+gem 'passenger' 
+#gem 'capistrano'
 gem 'will_paginate', '>= 3.0.pre'
 group :production do
  gem 'mysql'
