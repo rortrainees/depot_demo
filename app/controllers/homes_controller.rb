@@ -1,6 +1,8 @@
 class HomesController < ApplicationController
-	#contact information
-	def contact
 
-	end
+  #contact information
+  def contact
+  	
+  end
+
 end
