@@ -43,6 +43,15 @@ Depot::Application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)
   config.i18n.fallbacks = true
+  #  activ merchant details 
+  config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :production
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "attriamit8_api1.gmail.com",
+    :password => "GJN9X8KUCF7L3KR2",
+    :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31Am6BCcaZs9DZX7cLh0uuLn7DsNTG"
+   )
+  end
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify

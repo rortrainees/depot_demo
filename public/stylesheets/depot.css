@@ -193,6 +193,10 @@ display: block;
 .depot_form select, .depot_form textarea, .depot_form input {
 margin-left: 0.5em;
 }
+.depot_form textarea{
+  height: 113px;
+  width:  413px;
+}
 .depot_form .submit {
 margin-left: 4em;
 }

@@ -1,5 +1,7 @@
 Depot::Application.routes.draw do
 
+  resources :purchases
+  get 'contact' => 'homes#contact'
   get 'admin' => 'admin#index'
   
   controller :sessions do

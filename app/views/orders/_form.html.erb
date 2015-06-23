@@ -13,12 +13,16 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name , t('.name_html')%><br />
-    <%= f.text_field :name ,:size => 40 %>
+    <%= f.label :first_name , t('.name_html')%><br />
+    <%= f.text_field :first_name ,:size => 40 %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name,:size => 40 %>
   </div>
   <div class="field">
     <%= f.label :address ,t('.address_html') %><br />
-    <%= f.text_area :address ,:row=>3 , :column=>40 %>
+    <%= f.text_area :address  %>
   </div>
   <div class="field">
     <%= f.label :email %><br />
@@ -26,9 +30,22 @@
   </div>
   <div class="field">
     <%= f.label :pay_type %><br />
-    <%= f.select :pay_type, Order::PAYMENT_TYPES,
-         :prompt => t('.pay_prompt_html') %>
+    <%= f.select :card_type,[["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]]  %>
   </div>
+  <div class="field">
+      <%= f.label :card_number %><br />
+    <%= f.text_field :card_number %>
+  </div>
+   <div class="field">
+    <%= f.label :card_verification, "Card Verification Value (CVV)" %><br />
+    <%= f.text_field :card_verification %>
+  </div>
+   <div class="field">
+    <%= f.label :card_expires_on %><br />
+    <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
+  </div>
+    
+         
   <div class="actions">
     <%= f.submit t('.submit') %>
   </div>

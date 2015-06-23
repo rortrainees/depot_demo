@@ -16,7 +16,7 @@
     <td class="list_actions" >
     <%= link_to 'Show', product %><br/>
     <%= link_to 'Edit', edit_product_path(product) %><br/>
-    <%= link_to 'Destroy', product,:confirm => 'Are you sure?',:method => :delete %>
+    <%= link_to 'Destroy',url_for(action: :destroy,id: product.id),:confirm => 'Are you sure?',:method => :delete %>
     </td>
    </tr>
    <% end %>

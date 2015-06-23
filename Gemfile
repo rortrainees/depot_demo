@@ -1,5 +1,10 @@
 source 'http://rubygems.org'
 
+
+gem 'activemerchant', '~> 1.10.0'
+gem 'haml', '~> 3.0.18'
+gem 'jquery-rails', '~> 0.2.2'
+
 gem 'rails', '3.0.20'
 gem 'passenger' 
 #gem 'capistrano'

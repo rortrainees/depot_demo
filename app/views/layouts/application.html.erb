@@ -5,16 +5,17 @@
       <%= stylesheet_link_tag "scaffold" %>
       <%= stylesheet_link_tag "depot", :media => "all" %>
       <%= javascript_include_tag :defaults %>
+      <%= javascript_include_tag :all %>
       <%= csrf_meta_tag %>
   </head>
   <body id="store" >
     <div id="banner" >
      <%= form_tag store_path, :class => 'locale' do %>
       <%= select_tag 'set_locale', options_for_select(LANGUAGES, I18n.locale.to_s),:onchange => 'this.form.submit()' %>
-      <%= submit_tag 'submit' %>
+      <% submit_tag 'submit' %>
       <%= javascript_tag "$$('.locale input').each(Element.hide)" %>
      <% end %>
-      <%= image_tag("logo.png") %>
+      <%=link_to image_tag("logo.png"), store_url %>
       <%= @page_title || t('.title') %>
     </div>
     <div id="columns" >
@@ -26,10 +27,10 @@
         <% end %>
         <div id="cart" >
         </div>
-        <a href="http://www...." ><%= t('.home') %> </a><br />
+         <%=link_to t('.home'),store_url %><br />
  				<a href="http://www..../faq" ><%= t('.questions') %></a><br />
  				<a href="http://www..../news" ><%= t('.news') %></a><br />
- 				<a href="http://www..../contact" ><%= t('.contact') %></a><br />
+ 				<%= link_to t('.contact'),contact_path %><br />
         <% if session[:user_id] %>
         <%= link_to 'Orders', orders_path %><br />
         <%= link_to 'Products', products_path %><br />

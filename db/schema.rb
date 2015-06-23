@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150610123504) do
+ActiveRecord::Schema.define(:version => 20150622111758) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -27,13 +27,31 @@ ActiveRecord::Schema.define(:version => 20150610123504) do
     t.integer  "order_id"
   end
 
-  create_table "orders", :force => true do |t|
-    t.string   "name"
-    t.text     "address"
-    t.string   "email"
-    t.string   "pay_type"
+  create_table "order_transactions", :force => true do |t|
+    t.integer  "order_id"
+    t.string   "action"
+    t.integer  "amount"
+    t.boolean  "success"
+    t.string   "authorization"
+    t.string   "message"
+    t.text     "params"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "orders", :force => true do |t|
+    t.text     "address"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "athorization_code"
+    t.boolean  "success"
+    t.integer  "cart_id"
+    t.string   "ip_address"
+    t.date     "card_expires_on"
+    t.string   "card_type"
+    t.string   "first_name"
+    t.date     "last_name"
   end
 
   create_table "products", :force => true do |t|
@@ -41,6 +59,17 @@ ActiveRecord::Schema.define(:version => 20150610123504) do
     t.string   "image_url"
     t.string   "description"
     t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "purchases", :force => true do |t|
+    t.integer  "cart_id"
+    t.string   "ip_address"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "card_type"
+    t.date     "card_expires_on"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

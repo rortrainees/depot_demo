@@ -6,6 +6,6 @@
        <td class="total_cell" ><%= number_to_currency(cart.total_price) %></td>
    </tr>
 </table>
-<%= button_to t('.checkout'), new_order_path, :method => :get,:id => 'chkout'%>
+<%= button_to t('.checkout'), new_order_path(cart), :method => :get,:id => 'chkout'%>
 <%= button_to t('.empty'), cart, :method => :delete,
 :confirm => 'Are you sure?' %>

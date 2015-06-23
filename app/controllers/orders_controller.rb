@@ -47,14 +47,17 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
+    @order.ip_address = request.remote_ip
     respond_to do |format|
-      if @order.save
+    if @order.save
+      if @order.purchase 
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         Notifier.order_received(@order).deliver
-        format.html { redirect_to(store_url,I18n.t('.thanks')) }
+        format.html { redirect_to(store_url,:notice=> I18n.t('.thanks')) }
         format.xml { render :xml => @order, :status => :created,
                       :location => @order }
+      end              
     else
         format.html { render :action => "new" }
         format.xml  { render :xml => @order.errors, :status => :unprocessable_entity }

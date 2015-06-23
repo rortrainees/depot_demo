@@ -19,6 +19,15 @@ Depot::Application.configure do
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
+  # add actuve merchant details 
+  config.after_initialize do
+  ActiveMerchant::Billing::Base.mode = :test
+  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+    :login => "aniltimt+1_api1.gmail.com",
+    :password => "WT7DYR3BA5GWNXVD",
+    :signature => "AH6bBpfvNcaQP9jFI9pdPyFIDLGtARVtLu-VrIwz0UTewrK8cqez.ies"
+  )
+  end 
 
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
