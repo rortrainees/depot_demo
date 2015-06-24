@@ -31,6 +31,7 @@
  				<a href="http://www..../faq" ><%= t('.questions') %></a><br />
  				<a href="http://www..../news" ><%= t('.news') %></a><br />
  				<%= link_to t('.contact'),contact_path %><br />
+        <%= link_to "Admin",users_path %><br />
         <% if session[:user_id] %>
         <%= link_to 'Orders', orders_path %><br />
         <%= link_to 'Products', products_path %><br />

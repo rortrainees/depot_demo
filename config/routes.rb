@@ -13,7 +13,9 @@ Depot::Application.routes.draw do
   scope '(:locale)' do
 
    resources :users
-   resources :orders
+   resources :orders do
+    get "checkout" => "orders#checkout" , :on => :new
+   end
    resources :line_items
    resources :carts
    get "index" =>"store#index"

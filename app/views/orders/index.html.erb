@@ -6,17 +6,19 @@
     <th>Address</th>
     <th>Email</th>
     <th>Pay type</th>
-    <th></th>
-    <th></th>
+    <th>Authorization Code</th>
+    <th>Ip Address</th>
     <th></th>
   </tr>
 
 <% @orders.each do |order| %>
   <tr>
-    <td><%= order.name %></td>
+    <td><%= order.first_name %></td>
     <td><%= order.address %></td>
     <td><%= order.email %></td>
-    <td><%= order.pay_type %></td>
+    <td><%= order.card_type %></td>
+    <td><%= order.authorization %></td>
+    <td><%= order.ip_address %></td>
     <td><%= link_to 'Show', order %></td>
     <td><%= link_to 'Edit', edit_order_path(order) %></td>
     <td><%= link_to 'Destroy', order, :confirm => 'Are you sure?', :method => :delete %></td>

@@ -45,13 +45,15 @@ Depot::Application.configure do
   config.i18n.fallbacks = true
   #  activ merchant details 
   config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :production
-  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
-    :login => "attriamit8_api1.gmail.com",
-    :password => "GJN9X8KUCF7L3KR2",
-    :signature => "AFcWxV21C7fd0v3bYYYRCpSSRl31Am6BCcaZs9DZX7cLh0uuLn7DsNTG"
-   )
-  end
+   ActiveMerchant::Billing::Base.mode = :test
+   paypal_options = {
+    :login => "aniltimt+1_api1.gmail.com",
+    :password => "WT7DYR3BA5GWNXVD",
+    :signature => "AH6bBpfvNcaQP9jFI9pdPyFIDLGtARVtLu-VrIwz0UTewrK8cqez.ies"
+   }
+   ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+   ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end 
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify

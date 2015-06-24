@@ -21,14 +21,15 @@ Depot::Application.configure do
   config.active_support.deprecation = :log
   # add actuve merchant details 
   config.after_initialize do
-  ActiveMerchant::Billing::Base.mode = :test
-  ::GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(
+   ActiveMerchant::Billing::Base.mode = :test
+   paypal_options = {
     :login => "aniltimt+1_api1.gmail.com",
     :password => "WT7DYR3BA5GWNXVD",
     :signature => "AH6bBpfvNcaQP9jFI9pdPyFIDLGtARVtLu-VrIwz0UTewrK8cqez.ies"
-  )
-  end 
-
+   }
+   ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+   ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end  
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }

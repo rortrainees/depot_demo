@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150622111758) do
+ActiveRecord::Schema.define(:version => 20150624045849) do
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -48,10 +48,13 @@ ActiveRecord::Schema.define(:version => 20150622111758) do
     t.boolean  "success"
     t.integer  "cart_id"
     t.string   "ip_address"
-    t.date     "card_expires_on"
     t.string   "card_type"
     t.string   "first_name"
     t.date     "last_name"
+    t.integer  "authorization"
+    t.string   "express_token"
+    t.string   "express_payer_id"
+    t.date     "card_expires_on"
   end
 
   create_table "products", :force => true do |t|

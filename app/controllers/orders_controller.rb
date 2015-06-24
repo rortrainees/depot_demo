@@ -1,7 +1,20 @@
 class OrdersController < ApplicationController
-  skip_before_filter :authorize, :only => [:create, :new]
+  skip_before_filter :authorize, :only => [:create, :new ,:checkout]
   # GET /orders
   # GET /orders.xml
+  # for express checkout by paypal
+  include ActiveMerchant::Billing 
+  def checkout 
+    cart = Cart.find(current_cart.id)
+    price_in_cents = cart.total_price
+    response = EXPRESS_GATEWAY.setup_purchase(price_in_cents,
+    :ip                => request.remote_ip,
+    :return_url        => new_order_url,
+    :cancel_return_url => products_url
+    )
+    redirect_to EXPRESS_GATEWAY.redirect_url_for(response.token)
+  end
+
   def index
     @orders = Order.paginate :page=>params[:page], 
     :order=>'created_at desc', :per_page => 10
@@ -30,10 +43,11 @@ class OrdersController < ApplicationController
       redirect_to store_url, :notice => "Your cart is empty"
       return
     end
-    @order = Order.new
+    @order = Order.new(:express_token => params[:token])
+    cart = Cart.find(current_cart.id)
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml { render :xml => @order}
+    format.html # new.html.erb
+    format.xml { render :xml => @order}
     end
   end
 
@@ -46,11 +60,14 @@ class OrdersController < ApplicationController
   # POST /orders.xml
   def create
     @order = Order.new(params[:order])
-    @order.add_line_items_from_cart(current_cart)
+    cart = Cart.find(current_cart.id)
+    #@order.add_line_items_from_cart(current_cart)
     @order.ip_address = request.remote_ip
     respond_to do |format|
     if @order.save
-      if @order.purchase 
+       total_price = cart.total_price*100
+      if @order.purchase(total_price) 
+        @order.add_line_items_from_cart(current_cart)
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
         Notifier.order_received(@order).deliver

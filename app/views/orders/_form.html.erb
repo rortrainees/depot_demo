@@ -1,6 +1,6 @@
 <%= form_for(@order ) do |f| %>
-  <% if @order.errors.any? %>
-    <div id="error_explanation">
+   <% if @order.errors.any? %>
+     <div id="error_explanation">
       <h2><%= t('errors.template.header', :count=>@order.errors.size,:model=>t('activerecord.models.order')) %>.</h2>
       <p><%= t('.errors.template.body') %></p>
 
@@ -11,9 +11,9 @@
       </ul>
     </div>
   <% end %>
-
+  <% if @order.express_token.blank? %>
   <div class="field">
-    <%= f.label :first_name , t('.name_html')%><br />
+    <%= f.label :first_name , t('.first_name')%><br />
     <%= f.text_field :first_name ,:size => 40 %>
   </div>
   <div class="field">
@@ -44,8 +44,12 @@
     <%= f.label :card_expires_on %><br />
     <%= f.date_select :card_expires_on, :discard_day => true, :start_year => Date.today.year, :end_year => (Date.today.year+10), :add_month_numbers => true %>
   </div>
-    
-         
+  <% else %>
+    <%= f.hidden_field :express_token %>
+    <p>Name: <%=h @order.first_name %> <%=h @order.last_name %></p>
+    <p>TODO Display order confirmation details</p>
+  <% end %>
+            
   <div class="actions">
     <%= f.submit t('.submit') %>
   </div>
